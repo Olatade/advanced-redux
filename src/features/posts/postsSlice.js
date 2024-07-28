@@ -1,4 +1,4 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, nanoid, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 import { client } from '../../api/client'
 
 const initialState = {
@@ -100,3 +100,8 @@ export const selectPostById = (state, postId) => {
   // you can also do:
   // state.push(...action.payload)
 }
+// Reselect is a library for creating memoized selector functions, and was specifically designed to be used with Redux. It has a createSelector function that generates memoized selectors that will only recalculate results when the inputs change
+export const selectPostsByUser = createSelector(
+  [selectAllPosts, (state, userId) => userId],
+  (posts, userId) => posts.filter(post => post.user === userId)
+)

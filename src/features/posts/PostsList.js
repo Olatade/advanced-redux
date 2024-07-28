@@ -8,7 +8,7 @@ import { TimeAgo } from './TimeAgo'
 import { ReactionButtons } from './ReactionButtons'
 import { fetchPosts, selectAllPosts } from './postsSlice'
 
-const PostExcerpt = ({ post }) => {
+let PostExcerpt = ({ post }) => {
   return (
     <article className="post-excerpt" key={post.id}>
       <h3>{post.title}</h3>
@@ -25,6 +25,8 @@ const PostExcerpt = ({ post }) => {
     </article>
   )
 }
+
+PostExcerpt = React.memo(PostExcerpt)
 
 export const PostsList = () => {
   const dispatch = useDispatch()
@@ -48,7 +50,7 @@ export const PostsList = () => {
     const orderedPosts = posts
       .slice()
       .sort((a, b) => b.date.localeCompare(a.date))
-      console.log(orderedPosts)
+    console.log(orderedPosts)
 
     content = orderedPosts.map((post) => (
       <PostExcerpt key={post.id} post={post} />
